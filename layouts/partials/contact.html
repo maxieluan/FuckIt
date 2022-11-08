@@ -1,0 +1,103 @@
+{{ $url := .Site.Params.contact.url }}
+
+<button
+  type="button"
+  class="button-pulse contact"
+  data-bs-toggle="modal"
+  data-bs-target="#contact"
+>
+  <i class="far fa-comment-alt" aria-hidden="true"></i>&nbsp{{ T "contactme"}}
+</button>
+<div class="modal" id="contact">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ T "contactme" }}</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form id="contactform" action='{{ $url }}' method="post">
+            <div class="form-group row">
+              <label for="name" class="col-4 col-form-label">{{ T "yourname"}}</label>
+              <div class="col-8">
+                <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fa fa-address-card"></i>
+                </span>
+                  <input
+                    id="name"
+                    name="name"
+                    placeholder='{{ T "yourname-placeholder" }}'
+                    type="text"
+                    class="form-control"
+                    aria-describedby="nameHelpBlock"
+                    required="required"
+                  />
+                </div>
+                <span id="nameHelpBlock" class="form-text text-muted"
+                  >{{ T "yourname-instruction" }}</span
+                >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="phone" class="col-4 col-form-label">{{ T "contactinfo" }}</label>
+              <div class="col-8">
+                <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fa fa-headphones"></i>
+                    </span>
+                  <input
+                    id="phone"
+                    name="contactinfo"
+                    placeholder='{{ T "contactinfo-placeholder" }}'
+                    type="text"
+                    class="form-control"
+                    aria-describedby="phoneHelpBlock"
+                    required="required"
+                  />
+                </div>
+                <span id="phoneHelpBlock" class="form-text text-muted"
+                  >{{ T "contactinfo-instruction" }}</span
+                >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="message" class="col-4 col-form-label"
+                > {{ T "howwecanhelp" }} </label
+              >
+              <div class="col-8">
+                <textarea
+                  id="detail"
+                  name="detail"
+                  cols="40"
+                  rows="5"
+                  class="form-control"
+                  aria-describedby="detailHelpBlock"
+                ></textarea>
+                <span id="detailHelpBlock" class="form-text text-muted"
+                  >{{ T "howwecanhelp-instruction" }}</span
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            {{ T "contact-cancel"}}
+          </button>
+          <button type="submit" form="contactform" class="btn btn-primary">{{ T "contact-submit" }} </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

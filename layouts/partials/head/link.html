@@ -1,0 +1,8 @@
+{{ $assetBusting := not .Site.Params.disableAssetsBusting }}
+
+{{ $bootstrap := resources.Get "css/bootstrap.css" | resources.Fingerprint }}
+{{ $theme := resources.Get "css/style.scss" | resources.ToCSS | resources.Fingerprint }}
+
+<link rel="stylesheet" href="{{ $bootstrap.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $bootstrap.Data.Integrity }}"/>
+<link href="/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ $theme.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $theme.Data.Integrity }}"/>

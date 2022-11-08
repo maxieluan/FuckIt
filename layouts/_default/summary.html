@@ -1,0 +1,74 @@
+{{- $params := .Params | merge .Site.Params.page -}}
+<article class="post-preview summary" itemscope itemtype="http://schema.org/Article">
+    {{- /* Featured image */ -}}
+    {{- $image := $params.featuredimagepreview | default $params.featuredimage -}}
+    {{- with .Resources.GetMatch "featured-image" -}}
+        {{- $image = .RelPermalink -}}
+    {{- end -}}
+    {{- with .Resources.GetMatch "featured-image-preview" -}}
+        {{- $image = .RelPermalink -}}
+    {{- end -}}
+    {{- with $image -}}
+        <div class="featured-image-preview">
+            <a href="{{ $.RelPermalink }}">
+                {{- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -}}
+            </a>
+        </div>
+    {{- end -}}
+
+    {{- /* Title */ -}}
+    <h2 class="post-title" itemprop="name headline">
+        <a href="{{ .RelPermalink }}">{{ .Title | emojify }}</a>
+    </h2>
+
+    {{- /* Meta */ -}}
+    <div class="post-meta">
+        {{- $author := $params.author | default .Site.Author.name | default (T "author") -}}
+        {{- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -}}
+        <span class="post-author">
+            {{- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Src" "svg/icons/user-circle.svg") "Content" $author -}}
+            {{- partial "plugin/a.html" $options -}}
+        </span>
+
+        {{- with .Site.Params.dateFormat | default "2006-01-02" | .PublishDate.Format -}}
+            &nbsp;<span class="post-publish">
+                {{- printf `<time datetime="%v">%v</time>` . . | dict "Date" | T "publishedOnDate" | safeHTML -}}
+            </span>
+        {{- end -}}
+
+        {{- $categories := slice -}}
+        {{- range .Params.categories -}}
+            {{- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -}}
+            {{- $categories = $categories | append (printf `<a href="%v"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H298.5c-17 0-33.3-6.7-45.3-18.7L226.7 50.7c-12-12-28.3-18.7-45.3-18.7H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"/></svg>%v</a>` $category.RelPermalink $category.Title) -}}
+        {{- end -}}
+        {{- with delimit $categories "&nbsp;" -}}
+            &nbsp;<span class="post-category">
+                {{- dict "Categories" . | T "includedInCategories" | safeHTML -}}
+            </span>
+        {{- end -}}
+    </div>
+
+    {{- /* Summary content */ -}}
+    <div class="content">
+        {{- with .Summary -}}
+            {{- dict "Content" . "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+        {{- else -}}
+            {{- .Description | safeHTML -}}
+        {{- end -}}
+    </div>
+
+    {{- /* Footer */ -}}
+    <div class="post-footer">
+        <a href="{{ .RelPermalink }}">{{ T "readMore" }}</a>
+        {{- with .Params.tags -}}
+            <div class="post-tags">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M0 80V229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7H48C21.5 32 0 53.5 0 80zm112 96c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z"/></svg>&nbsp;
+                {{- range $index, $value := . -}}
+                    {{- if gt $index 0 }},&nbsp;{{ end -}}
+                    {{- $tag := partialCached "function/path.html" $value $value | printf "/tags/%v" | $.Site.GetPage -}}
+                    <a href="{{ $tag.RelPermalink }}">{{ $tag.Title }}</a>
+                {{- end -}}
+            </div>
+        {{- end -}}
+    </div>
+</article>

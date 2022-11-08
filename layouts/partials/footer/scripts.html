@@ -1,0 +1,25 @@
+{{ $assetBusting := not .Site.Params.disableAssetsBusting }}
+
+{{ $bootstrap := resources.Get "js/bootstrap.min.js" | resources.Fingerprint}}
+{{ $bootstraptoc := resources.Get "js/bootstrap-toc.min.js" | resources.Fingerprint }}
+{{ $jq := resources.Get "js/jquery-3.6.1.min.js" | resources.Fingerprint }}
+{{ $lazy := resources.Get "lib/lazysizes/lazysizes.min.js" | resources.Fingerprint }}
+{{ $typeit := resources.Get "lib/typeit/index.umd.js" | }}
+{{ $theme := resources.Get "js/theme.js" | resources.Minify | resources.Fingerprint }}
+{{ $ResizeSensor := resources.Get "js/ResizeSensor.min.js" | resources.Fingerprint }}
+{{ $stickySidebar := resources.Get "js/theia-sticky-sidebar.min.js" | resources.Fingerprint }}
+
+{{ $sticky := slice $ResizeSensor $stickySidebar | resources.Concat "js/sticky.js" | resources.Fingerprint }}
+
+
+{{/*  {{ $js := slice $bootstrap $bootstraptoc $theme | resources.Concat "js/all.js" | resources.Minify | resources.Fingerprint }}  */}}
+{{ $js := slice $bootstrap $bootstraptoc $theme | resources.Concat "js/all.js" | resources.Minify | resources.Fingerprint }}
+
+<script src="{{ $jq.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $jq.Data.Integrity }}"></script>
+<script src="{{ $lazy.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $lazy.Data.Integrity }}"></script>
+<script src="{{ $typeit.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $typeit.Data.Integrity }}"></script>
+<script src="{{ $bootstrap.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $bootstrap.Data.Integrity }}"></script>
+<script src="{{ $bootstraptoc.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $bootstraptoc.Data.Integrity }}"></script>
+<script src="{{ $sticky.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $sticky.Data.Integrity }}"></script>
+<script src="{{ $theme.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $theme.Data.Integrity }}"></script>
+
