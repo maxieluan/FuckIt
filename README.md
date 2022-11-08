@@ -4,7 +4,7 @@ Prior to when I wanted to apply some personalization. It was very painful.
 
 I'm not a graphic designer, and I'm not familiar with javascript's development. CSS is difficult for me to use. I'm unable to adhere to the es6 standard.
 
-The site loads slow in China. As I dug deeper, I discovered it depends on numerous CDN third-party dependencies as well as a polyfill.io dependency. Connection to polyfill.io usually takes about one or two seconds from China. The design is good. But doesn't quite meeds my requirement. 
+The site loads slow in China. As I dug deeper, I discovered it depends on numerous CDN third-party dependencies as well as a polyfill.io dependency. Connection to polyfill.io usually takes about one or two seconds from China. The design is good. But doesn't quite meets my requirement. 
 
 I am familiar with jquery and the grid system.
 
