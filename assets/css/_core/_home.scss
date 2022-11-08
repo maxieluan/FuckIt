@@ -112,10 +112,11 @@ header.masthead {
     width: 6rem;
   }
 
-  .summary {
+  article.summary {
     padding-top: 1rem;
     padding-bottom: 0.8rem;
     color: $global-font-color;
+    font-family: $global-font-family;
     border-bottom: 1px dashed $global-border-color;
 
     [theme="dark"] & {
@@ -156,6 +157,7 @@ header.masthead {
     .post-meta {
       
       font-size: 0.875rem;
+      font-style: normal;
       color: $global-font-secondary-color;
 
       span {
@@ -180,7 +182,7 @@ header.masthead {
       }
     }
 
-    .content {
+    div.content {
       @include box(vertical);
       -webkit-line-clamp: 3;
       margin-top: 0.3rem;
@@ -189,6 +191,7 @@ header.masthead {
       text-overflow: ellipsis;
       @include overflow-wrap(break-word);
       color: $global-font-secondary-color;
+      font-size: $global-font-size;
 
       [theme="dark"] & {
         color: $global-font-secondary-color-dark;

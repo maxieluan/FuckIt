@@ -1,3 +1,23 @@
+div#featured-articles {
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  article {
+    font-size: $global-font-size;
+    font-family: $global-font-family;
+    
+    margin: 15px 0px 15px 0px;
+    a {
+      padding: 0%;
+    }
+
+    border-bottom: dashed 2px gray;
+  }
+}
+
 article.single {
   .single-title {
     margin: 2rem 0 0.5rem;
@@ -11,6 +31,15 @@ article.single {
     font-size: 1.2rem;
     font-weight: normal;
     line-height: 100%;
+  }
+
+  .post-meta::after {
+      content: '';
+      display: block;
+      position: relative;
+      width: 80%;
+      border-bottom: 2px dashed #898989;
+      margin-top: 8px;
   }
 
   .post-meta {

@@ -57,6 +57,12 @@
         'sidebarBehavior':'modern',
         'additionalMarginTop': 80,
       })
+
+      $("#featured-articles").theiaStickySidebar({
+        "containerSelector": ".container.row",
+        'sidebarBehavior':'modern',
+        'additionalMarginTop': 80,
+      })
     })
 
     // table
@@ -73,6 +79,4 @@
         })
       }
     })
-
-
   })(); // End of use strict

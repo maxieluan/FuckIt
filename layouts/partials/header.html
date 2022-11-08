@@ -1,9 +1,24 @@
 {{ $params := .Scratch.Get "params" }} {{- $loading := resources.Get
 "svg/loading.svg" | minify -}}
 
-<nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+<nav
+  class="navbar navbar-light navbar-expand-lg fixed-top kind-{{- .Kind -}}"
+  id="mainNav"
+>
   <div class="container">
-    <a class="navbar-brand" href="{{ .Site.BaseURL }}">Brand</a
+    <a class="navbar-brand" href="{{ .Site.BaseURL }}">
+      {{- with .Site.Params.header.title -}} {{- with .logo -}} {{- dict "Src" .
+      "Class" "logo" | partial "plugin/img.html" -}} {{- end -}} {{- with .pre
+      -}}
+      <span class="header-title-pre">{{ . | safeHTML }}</span>
+      {{- end -}} {{- if .typeit -}} {{- $id := dict "Content" .name "Scratch"
+      $.Scratch | partial "function/id.html" -}}
+      <span id="{{ $id }}" class="typeit"></span>
+      {{- dict $id (slice $id) | dict "typeitMap" | merge ($.Scratch.Get "this")
+      | $.Scratch.Set "this" -}} {{- else -}} {{- .name -}} {{- end -}} {{- with
+      .post -}}
+      <span class="header-title-post">{{ . | safeHTML }}</span>
+      {{- end -}} {{- else -}} {{- .Site.Title -}} {{- end -}} </a
     ><button
       data-bs-toggle="collapse"
       data-bs-target="#navbarResponsive"
@@ -18,19 +33,35 @@
       <ul class="navbar-nav ms-auto">
         {{ range .Site.Menus.main }}
         <li class="nav-item">
-          <a class="nav-link" href="{{ .URL }}"
-            >{{ $text := print .Name | safeHTML }} {{ $text }}</a
+          {{- $url := .URL | relLangURL -}} {{- with .Page -}} {{- $url =
+          .RelPermalink -}} {{- end -}}
+          <a
+            class="nav-link"
+            href="{{ $url }}"
+            title="{{ .Title }}"
+            {{
+            if
+            (urls.Parse
+            $url).Host
+            }}
+            rel="noopener noreffer"
+            target="_blank"
+            {{
+            end
+            }}
           >
+            {{- .Pre | safeHTML }}{{ .Name }}{{ .Post | safeHTML -}}
+          </a>
         </li>
         {{ end }}
       </ul>
     </div>
   </div>
 </nav>
-{{ if eq .Kind "home" }} {{ $bgImage := .Site.Params.home.backgroundImage }}
+{{ if eq .Kind "home" }} {{ $bgImage := resources.Get .Site.Params.home.backgroundImage }}
 <header
   class="home-masthead masthead"
-  style="background-image:url('{{ $bgImage | relURL }}');"
+  style="background-image:url('{{ $bgImage.RelPermalink }}');"
 >
   <div class="overlay"></div>
   <div class="container home">
@@ -50,7 +81,10 @@
             </div>
           </div>
           <div class="row site-heading">
-            <span id="subtitle" typeit-data="{{ .Site.Params.home.subtitle }}"></span>
+            <span
+              id="subtitle"
+              typeit-data="{{ .Site.Params.home.subtitle }}"
+            ></span>
           </div>
           <div class="row links flex-row justify-content-center">
             {{- $socialMap := resources.Get "data/social.yml" |
@@ -96,54 +130,6 @@ end -}}
       <div class="col-md-12 col-lg-10 col-sm-12 mx-auto position-relative">
         <div class="site-heading">
           <h1>{{ .Title }}</h1>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-{{ end }} {{ if eq .Kind "section" }} {{- $image := $params.featuredimage -}}
-{{- with .Resources.GetMatch "featured-image" -}} {{- $image = .RelPermalink -}}
-{{- end -}}
-<header class="masthead" style="background-image:url('{{ $image }}');">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10 col-lg-8 mx-auto position-relative">
-        <div class="site-heading">
-          <h1>{{ .Site.Title }}</h1>
-          <span class="subheading">A Blog Theme by Start Bootstrap</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-{{ end }} {{ if eq .Kind "taxonomy" }} {{- $image := $params.featuredimage -}}
-{{- with .Resources.GetMatch "featured-image" -}} {{- $image = .RelPermalink -}}
-{{- end -}}
-<header class="masthead" style="background-image:url('{{ $image }}');">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10 col-lg-8 mx-auto position-relative">
-        <div class="site-heading">
-          <h1>Clean Blog</h1>
-          <span class="subheading">A Blog Theme by Start Bootstrap</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-{{ end }} {{ if eq .Kind "term" }} {{- $image := $params.featuredimage -}} {{-
-with .Resources.GetMatch "featured-image" -}} {{- $image = .RelPermalink -}} {{-
-end -}}
-<header class="masthead" style="background-image:url('{{ $image }}');">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10 col-lg-8 mx-auto position-relative">
-        <div class="site-heading">
-          <h1>Clean Blog</h1>
-          <span class="subheading">A Blog Theme by Start Bootstrap</span>
         </div>
       </div>
     </div>

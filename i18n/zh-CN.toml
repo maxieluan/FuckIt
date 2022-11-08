@@ -235,3 +235,7 @@ other = "取消"
 
 [contact-submit]
 other = "提交"
+
+# featured
+[featured-section]
+other = "精选文章"

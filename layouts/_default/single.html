@@ -1,11 +1,20 @@
-{{/*  https://gohugo.io/templates/lookup-order/
-    will be overrided by posts/single
-    */}}
-
-
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
-{{ partial "metadata.html" . }}
-<br><br>
-{{ .Content }}
+{{ $params := .Scratch.Get "params"}}
+
+{{- $toc := .Site.Params.page.toc | default (dict "enable" false) -}}
+
+<div class="container">
+    <div class="row">
+        {{- if ne $toc.enable false -}}
+        <nav id="toc" data-toggle="toc" class="col-md-2 col-lg-2"></nav>
+        {{- end -}}
+        <article class="col-md-10 col-lg-8 row justify-content-start single">
+            {{ partial "metadata.html" . }} 
+            <hr style="border-top: 1px dashed #8c8b8b;">
+            <div class="content" id="content">
+                {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+            </div>
+        </article>
+    </div>
+</div>
 {{ end }}
