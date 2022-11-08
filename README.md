@@ -1,4 +1,4 @@
-It was a fantastic start for me to start with the topic Loveit.
+It was a fantastic start for me to start with the theme Loveit.
 
 Prior to when I wanted to apply some personalization. It was very painful.
 
