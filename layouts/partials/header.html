@@ -1,0 +1,152 @@
+{{ $params := .Scratch.Get "params" }} {{- $loading := resources.Get
+"svg/loading.svg" | minify -}}
+
+<nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="{{ .Site.BaseURL }}">Brand</a
+    ><button
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarResponsive"
+      class="navbar-toggler"
+      aria-controls="navbarResponsive"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto">
+        {{ range .Site.Menus.main }}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ .URL }}"
+            >{{ $text := print .Name | safeHTML }} {{ $text }}</a
+          >
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</nav>
+{{ if eq .Kind "home" }} {{ $bgImage := .Site.Params.home.backgroundImage }}
+<header
+  class="home-masthead masthead"
+  style="background-image:url('{{ $bgImage | relURL }}');"
+>
+  <div class="overlay"></div>
+  <div class="container home">
+    <div class="row">
+      <div class="col-md-10 col-lg-8 mx-auto position-relative">
+        <div class="home-profile">
+          <div class="row home-avatar">
+            {{ $avatar := .Site.Params.home.profile.avatarURL }}
+            <div class="col-md-3 offset-md-3">
+              {{- dict "Src" $avatar "Class" "avatar" | partial
+              "plugin/img.html" -}}
+            </div>
+            {{ $qrCode := .Site.Params.home.profile.qrCodeURL }}
+            <div class="col-md-3">
+              {{- dict "Src" $qrCode "Class" "qrCode" | partial
+              "plugin/img.html" -}}
+            </div>
+          </div>
+          <div class="row site-heading">
+            <span id="subtitle" typeit-data="{{ .Site.Params.home.subtitle }}"></span>
+          </div>
+          <div class="row links flex-row justify-content-center">
+            {{- $socialMap := resources.Get "data/social.yml" |
+            transform.Unmarshal -}} {{- $socialArr := slice -}} {{- range $key,
+            $value := .Site.Params.social -}} {{- $social := $key | lower |
+            index $socialMap | default dict -}} {{- if $value -}} {{- if
+            reflect.IsMap $value -}} {{- with $value.weight -}} {{- $social =
+            dict "Weight" . | merge $social -}} {{- end -}} {{- with
+            $value.prefix -}} {{- $social = dict "Prefix" . | merge $social -}}
+            {{- end -}} {{- with $value.template -}} {{- $social = dict
+            "Template" . | merge $social -}} {{- end -}} {{- with $value.id -}}
+            {{- $social = dict "Id" . | merge $social -}} {{- end -}} {{- with
+            $value.url -}} {{- $social = dict "Url" . | merge $social -}} {{-
+            end -}} {{- with $value.title -}} {{- $social = dict "Title" . |
+            merge $social -}} {{- end -}} {{- with $value.newtab -}} {{- $social
+            = dict "Newtab" . | merge $social -}} {{- end -}} {{- with
+            $value.icon -}} {{- $social = dict "Icon" . | merge $social -}} {{-
+            end -}} {{- with $value.rel -}} {{- $social = dict "Rel" . | merge
+            $social -}} {{- end -}} {{- else if ne $value true -}} {{- $social =
+            dict "Id" $value | merge $social -}} {{- end -}} {{- if
+            $social.Icon.Simpleicons -}} {{- $prefix := ($.Scratch.Get "cdn" |
+            default dict).simpleIconsPrefix -}} {{- $social = dict "Prefix"
+            $prefix | dict "Icon" | merge $social -}} {{- end -}} {{- $socialArr
+            = $socialArr | append $social -}} {{- end -}} {{- end -}} {{- range
+            sort $socialArr "Weight" -}} {{- partial "plugin/social.html" . -}}
+            {{- end -}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{{ end }} {{ if eq .Kind "page" }} {{- $image := $params.featuredimage -}} {{-
+with .Resources.GetMatch "featured-image" -}} {{- $image = .RelPermalink -}} {{-
+end -}}
+<header
+  class="page-masthead masthead"
+  style="background-image:url('{{ $image }}');"
+>
+  <div class="overlay"></div>
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-12 col-lg-10 col-sm-12 mx-auto position-relative">
+        <div class="site-heading">
+          <h1>{{ .Title }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{{ end }} {{ if eq .Kind "section" }} {{- $image := $params.featuredimage -}}
+{{- with .Resources.GetMatch "featured-image" -}} {{- $image = .RelPermalink -}}
+{{- end -}}
+<header class="masthead" style="background-image:url('{{ $image }}');">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-lg-8 mx-auto position-relative">
+        <div class="site-heading">
+          <h1>{{ .Site.Title }}</h1>
+          <span class="subheading">A Blog Theme by Start Bootstrap</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{{ end }} {{ if eq .Kind "taxonomy" }} {{- $image := $params.featuredimage -}}
+{{- with .Resources.GetMatch "featured-image" -}} {{- $image = .RelPermalink -}}
+{{- end -}}
+<header class="masthead" style="background-image:url('{{ $image }}');">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-lg-8 mx-auto position-relative">
+        <div class="site-heading">
+          <h1>Clean Blog</h1>
+          <span class="subheading">A Blog Theme by Start Bootstrap</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{{ end }} {{ if eq .Kind "term" }} {{- $image := $params.featuredimage -}} {{-
+with .Resources.GetMatch "featured-image" -}} {{- $image = .RelPermalink -}} {{-
+end -}}
+<header class="masthead" style="background-image:url('{{ $image }}');">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-lg-8 mx-auto position-relative">
+        <div class="site-heading">
+          <h1>Clean Blog</h1>
+          <span class="subheading">A Blog Theme by Start Bootstrap</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{{ end }}

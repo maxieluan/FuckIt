@@ -1,0 +1,13 @@
+{{ partial "init.html" .}}
+<!DOCTYPE html>
+<html>
+    {{- partial "head.html" . -}}
+    <body data-bs-spy="scroll" data-bs-target="#toc">
+        
+        {{- partial "header.html" . -}}
+        {{- partial "contact.html" . -}}
+        {{- block "main" . }}{{- end }}
+        
+        {{- partial "footer.html" . -}}
+    </body>
+</html>

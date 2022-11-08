@@ -1,0 +1,6 @@
+{
+    "scripts":[
+        "js/bootstrap.min.js",
+        "js/theme.js"
+    ]
+}

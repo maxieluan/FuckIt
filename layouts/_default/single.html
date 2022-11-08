@@ -1,0 +1,11 @@
+{{/*  https://gohugo.io/templates/lookup-order/
+    will be overrided by posts/single
+    */}}
+
+
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+{{ partial "metadata.html" . }}
+<br><br>
+{{ .Content }}
+{{ end }}
