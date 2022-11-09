@@ -72,5 +72,20 @@
           $(this).prepend("<a href=\"#".concat($(this).attr("id"), "\" class=\"header-mark\"></a>"))
         })
       }
+
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 400) {
+          $('#toTopBtn').fadeIn();
+        } else {
+          $('#toTopBtn').fadeOut();
+        }
+      });
+    
+      $('#toTopBtn').click(function() {
+        $("html, body").animate({
+          scrollTop: 0
+        }, 0);
+        return false;
+      });
     })
   })(); // End of use strict

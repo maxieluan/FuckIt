@@ -53,6 +53,7 @@ body {
 
 @include link(true, true);
 
+@import "../_partial/backtotop";
 @import "../_partial/mask";
 @import "../_partial/img";
 @import "../_partial/icon";

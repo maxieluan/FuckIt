@@ -1,7 +1,6 @@
 {{ $assetBusting := not .Site.Params.disableAssetsBusting }}
 
 {{ $bootstrap := resources.Get "js/bootstrap.min.js"}}
-{{ $bootstraptoc := resources.Get "js/bootstrap-toc.min.js" }}
 {{ $jq := resources.Get "js/jquery-3.6.1.min.js" }}
 {{ $unveilhooks := resources.Get "js/ls.unveilhooks.min.js" }}
 {{ $lazy := resources.Get "lib/lazysizes/lazysizes.min.js" }}
@@ -14,14 +13,13 @@
 
 
 {{/*  {{ $js := slice $bootstrap $bootstraptoc $theme | resources.Concat "js/all.js" | resources.Minify | resources.Fingerprint }}  */}}
-{{ $js := slice $bootstrap $bootstraptoc $theme | resources.Concat "js/all.js" | resources.Minify }}
+{{ $js := slice $bootstrap $theme | resources.Concat "js/all.js" | resources.Minify }}
 
 <script src="{{ $jq.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" ></script>
 <script src="{{ $unveilhooks.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" ></script>
 <script src="{{ $lazy.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" ></script>
 <script src="{{ $typeit.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" ></script>
 <script src="{{ $bootstrap.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" ></script>
-<script src="{{ $bootstraptoc.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" ></script>
 <script src="{{ $sticky.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" ></script>
 <script src="{{ $theme.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" ></script>
 
