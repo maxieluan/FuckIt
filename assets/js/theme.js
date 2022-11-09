@@ -63,15 +63,9 @@
         'sidebarBehavior':'modern',
         'additionalMarginTop': 80,
       })
-    })
 
-    // table
-    $(document).ready(function(){
       $(".content table").wrap("<div class='table-wrapper'></div>")
-    })
 
-    // header link
-    $(document).ready(function(){
       for(var num = 1; num <= 6; num++){
         $(".single .content > h" + num).each(function(){
           $(this).addClass("headerLink")
