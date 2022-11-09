@@ -3,7 +3,7 @@
    bottom: 64px;
    right: 250px;
    z-index: 98;
-   padding: 21px;
+   padding: 5px 14px 9px 14px;
    background-color: rgba(92, 143, 255, 0.8);
    
 }
@@ -35,7 +35,7 @@
    width: 40px;
    width: var(--cd-back-to-top-size);
    box-shadow: 0 0 10px rgba(0,0,0,.05) !important;
-   background: url(/svg/icons/cd-top-arrow.min.svg) no-repeat center 50%;
+   background: url(/cd-top-arrow.min.svg) no-repeat center 50%;
    background-color: hsla(5,76%,62%,.8);
    background-color: hsla(var(--cd-color-3-h),var(--cd-color-3-s),var(--cd-color-3-l),0.8);
 }
