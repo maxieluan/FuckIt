@@ -60,8 +60,8 @@
 </nav>
 {{ if eq .Kind "home" }} {{ $bgImage := resources.Get .Site.Params.home.backgroundImage }}
 <header
-  class="home-masthead masthead"
-  style="background-image:url('{{ $bgImage.RelPermalink }}');"
+  class="home-masthead masthead lazyload"
+  data-bg="{{ $bgImage.RelPermalink }}"
 >
   <div class="overlay"></div>
   <div class="container home">
@@ -121,8 +121,8 @@
 with .Resources.GetMatch "featured-image" -}} {{- $image = .RelPermalink -}} {{-
 end -}}
 <header
-  class="page-masthead masthead"
-  style="background-image:url('{{ $image }}');"
+  class="page-masthead masthead lazyload"
+  data-bg="{{ $image }}"
 >
   <div class="overlay"></div>
   <div class="container page">

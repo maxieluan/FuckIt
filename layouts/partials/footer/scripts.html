@@ -3,6 +3,7 @@
 {{ $bootstrap := resources.Get "js/bootstrap.min.js" | resources.Fingerprint}}
 {{ $bootstraptoc := resources.Get "js/bootstrap-toc.min.js" | resources.Fingerprint }}
 {{ $jq := resources.Get "js/jquery-3.6.1.min.js" | resources.Fingerprint }}
+{{ $unveilhooks := resources.Get "js/ls.unveilhooks.min.js" | resources.Fingerprint }}
 {{ $lazy := resources.Get "lib/lazysizes/lazysizes.min.js" | resources.Fingerprint }}
 {{ $typeit := resources.Get "lib/typeit/index.umd.js" | }}
 {{ $theme := resources.Get "js/theme.js" | resources.Minify | resources.Fingerprint }}
@@ -16,6 +17,7 @@
 {{ $js := slice $bootstrap $bootstraptoc $theme | resources.Concat "js/all.js" | resources.Minify | resources.Fingerprint }}
 
 <script src="{{ $jq.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $jq.Data.Integrity }}"></script>
+<script src="{{ $unveilhooks.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $unveilhooks.Data.Integrity }}"></script>
 <script src="{{ $lazy.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $lazy.Data.Integrity }}"></script>
 <script src="{{ $typeit.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $typeit.Data.Integrity }}"></script>
 <script src="{{ $bootstrap.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $bootstrap.Data.Integrity }}"></script>
