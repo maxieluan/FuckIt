@@ -1,9 +1,9 @@
 {{ $assetBusting := not .Site.Params.disableAssetsBusting }}
 
-{{ $bootstrap := resources.Get "css/bootstrap.css" | resources.Fingerprint }}
-{{ $theme := resources.Get "css/style.scss" | resources.ToCSS | resources.Fingerprint }}
+{{ $bootstrap := resources.Get "css/bootstrap.css" }}
+{{ $theme := resources.Get "css/style.scss" | resources.ToCSS}}
 
-<link rel="stylesheet" href="{{ $bootstrap.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $bootstrap.Data.Integrity }}"/>
+<link rel="stylesheet" href="{{ $bootstrap.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}"/>
 <link href="/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{ $theme.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" integrity="{{ $theme.Data.Integrity }}"/>
+<link rel="stylesheet" href="{{ $theme.RelPermalink }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}"/>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
