@@ -13,6 +13,7 @@ button.contact {
   margin: 40px;
   box-shadow: 0 2px 5px 0 rgba(255, 165, 0, 30%);
   transition: 0.5s all ease-in-out;
+  z-index: 1000;
   &:hover {
     cursor: pointer;
     background: white;
