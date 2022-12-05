@@ -90,41 +90,7 @@
     })
 
     // hightlight
-    $(".highlight > pre.chroma").each(function(){
-      var chroma = $("<div/>").addClass($(this).className)
-      var table = $("<table/>")
-      chroma.append(table)
-      var tbody = $("<tbody/>")
-      table.append(tbody)
-      var tr = $("<tr/>")
-      tbody.append(tr)
-      var td = $("<td/>")
-      tr.append(td)
-      $(this).empty().append(chroma)
-      td.append($(this))
-    })
-
-    $(".highlight > .chroma").each(function() {
+    $(".highlight > .chroma").each(function() {      
       $(this).addClass("open")
-      var codeElements = $("pre.chroma > code")
-      if (codeElements.length) {
-        var code = codeElements[codeElements.length - 1]
-        var header = $("<div/>").addClass('code-header ' + code.className.toLowerCase())
-        var title = $("<span/>").addClass('code-title')
-        title.prepend($('<i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i>'))
-        title.on("click", function(){
-          $(this).classList.toggle("open")
-        }, false)
-        header.append(title)
-        var ellipses = $("<span/>").prepend($('<i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i>')).addClass("ellipses").on("click", function(){
-          $(this).classList.toggle("open")
-        }, false)
-        header.append(ellipses)
-        var copy = $("<span/>").prepend($('<i class="far fa-copy fa-fw" aria-hidden="true"></i>')).addClass("copy")
-        var codeinnertext = code.text()
-        
-        header.append(copy)
-        $(this).insertBefore(header, this.firstChild)
-      }
     })
   })(); // End of use strict
