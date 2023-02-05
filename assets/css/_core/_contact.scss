@@ -24,6 +24,10 @@ button.contact {
   background-color: rgb(255, 165, 0);
 }
 
+input#contact-title {
+  display: none;
+}
+
 .button-wiggle {
   animation: wiggle 4s 2s infinite;
 }
